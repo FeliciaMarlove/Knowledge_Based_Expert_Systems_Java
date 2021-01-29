@@ -1,65 +1,54 @@
-package main.java.be.fmary;
+package main.java.be.fmary.facts;
 
-public class Fact {
+public class BooleanFact implements Fact {
     private String name;
-    private Boolean bValue;
-    private Integer iValue;
+    private Boolean value;
     private int level;
     private String question;
 
-    public Fact() {
-    }
-
-    public Fact(String name, Integer iValue, int level, String question) {
+    public BooleanFact(String name, Boolean value, int level, String question) {
         this.name = name;
-        this.iValue = iValue;
+        this.value = value;
         this.level = level;
         this.question = question;
     }
 
-    public Fact(String name, Boolean bValue, int level, String question) {
-        this.name = name;
-        this.bValue = bValue;
-        this.level = level;
-        this.question = question;
-    }
-
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    public Boolean bValue() {
-        return bValue;
+    @Override
+    public Object getValue() {
+        return this.value;
     }
 
-    public void setbValue(Boolean bValue) {
-        this.bValue = bValue;
+    @Override
+    public void setValue(Object bValue) {
+        this.value = value;
     }
 
-    public Integer getiValue() {
-        return iValue;
-    }
-
-    public void setiValue(Integer iValue) {
-        this.iValue = iValue;
-    }
-
+    @Override
     public int getLevel() {
         return level;
     }
 
+    @Override
     public void setLevel(int level) {
         this.level = level;
     }
 
+    @Override
     public String getQuestion() {
         return question;
     }
 
+    @Override
     public void setQuestion(String question) {
         this.question = question;
     }
@@ -68,8 +57,7 @@ public class Fact {
     public String toString() {
         return "Fact{" +
                 "name='" + name + '\'' +
-                ", bValue=" + bValue +
-                ", iValue=" + iValue +
+                ", value=" + value +
                 ", level=" + level +
                 ", question='" + question + '\'' +
                 '}';
