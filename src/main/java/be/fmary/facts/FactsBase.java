@@ -6,6 +6,10 @@ import java.util.List;
 public class FactsBase {
     private List<Fact> facts;
 
+    public FactsBase() {
+        this.facts = new ArrayList<>();
+    }
+
     public List<Fact> getFacts() {
         List<Fact> clonedList = new ArrayList<>();
         facts.forEach( fact -> clonedList.add((Fact) fact.clone()));
@@ -20,7 +24,17 @@ public class FactsBase {
         facts.add(fact);
     }
 
-    public FactsBase() {
-        this.facts = new ArrayList<>();
+    public Fact searchFact(String factName) {
+        for(Fact fact: facts) {
+            if (fact.getName().equals(factName)) {
+                return fact;
+            }
+        }
+        return null;
+    }
+
+    public Object getFactValue(String factName) {
+        Fact fact = searchFact(factName);
+        return fact == null ? null : fact.getValue();
     }
 }
