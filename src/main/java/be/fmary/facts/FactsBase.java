@@ -24,7 +24,7 @@ public class FactsBase {
         facts.add(fact);
     }
 
-    public Fact searchFact(String factName) {
+    public Fact getFact(String factName) {
         for(Fact fact: facts) {
             if (fact.getName().equals(factName)) {
                 return fact;
