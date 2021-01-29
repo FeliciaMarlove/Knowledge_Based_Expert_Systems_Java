@@ -1,6 +1,6 @@
 package main.java.be.fmary.facts;
 
-public class IntegerFact implements Fact {
+public class IntegerFact implements Fact, Cloneable {
     private String name;
     private Integer value;
     private int level;
@@ -15,7 +15,7 @@ public class IntegerFact implements Fact {
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class IntegerFact implements Fact {
 
     @Override
     public Integer getValue() {
-        return this.value;
+        return value;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class IntegerFact implements Fact {
 
     @Override
     public int getLevel() {
-        return this.level;
+        return level;
     }
 
     @Override
@@ -45,12 +45,17 @@ public class IntegerFact implements Fact {
 
     @Override
     public String getQuestion() {
-        return this.question;
+        return question;
     }
 
     @Override
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    @Override
+    public Object clone() {
+        return new IntegerFact(name, value, level, question);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package main.java.be.fmary.facts;
 
-public class BooleanFact implements Fact {
+public class BooleanFact implements Fact, Cloneable {
     private String name;
     private Boolean value;
     private int level;
@@ -25,7 +25,7 @@ public class BooleanFact implements Fact {
 
     @Override
     public Object getValue() {
-        return this.value;
+        return value;
     }
 
     @Override
@@ -51,6 +51,11 @@ public class BooleanFact implements Fact {
     @Override
     public void setQuestion(String question) {
         this.question = question;
+    }
+
+    @Override
+    public Object clone() {
+        return new BooleanFact(name, value, level, question);
     }
 
     @Override

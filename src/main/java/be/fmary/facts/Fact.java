@@ -9,4 +9,5 @@ public interface Fact {
     void setLevel(int level);
     String getQuestion();
     void setQuestion(String question);
+    Object clone();
 }
