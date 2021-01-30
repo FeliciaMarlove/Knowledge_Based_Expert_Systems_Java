@@ -38,29 +38,29 @@ public class FactFactory {
             do {
                 System.out.println("Please type \"bool\" for a \"True/False\" question or \"int\" for an integer question");
                 type = sc.nextLine().toLowerCase();
-            } while (!type.equals("bool") || !type.equals("int"));
+            } while (!type.equals("bool") && !type.equals("int"));
             switch (type) {
                 case "bool":
                     System.out.println("Please type the value, either \"true\" or \"false\":");
                     do {
                         value = sc.nextLine().toLowerCase();
-                    } while (value.equals("true") || value.equals("false"));
+                    } while (value.equals("true") && value.equals("false"));
                     break;
                 case "int":
                     System.out.println("Please type the integer:");
                     do {
                         value = sc.nextLine();
-                    } while (value.matches("[0-9]+"));
+                    } while (!value.matches("[0-9]+"));
                     break;
                 default:
                     value = null; break;
             }
 
-            System.out.println("Please check that everything is correct, type \"ok\" to confirm or any key to retry:");
+            System.out.println("Please check that everything is correct, type \"stop\" to retry or any key to continue:");
             System.out.println("Name = " + name + ",\ntype = "
                     + (type.equalsIgnoreCase("bool") ? "True/False question" : "Integer question")
                     + ",\nquestion = " + question);
-            ok = sc.nextLine().equalsIgnoreCase("ok");
+            ok = !sc.nextLine().equalsIgnoreCase("stop");
         } while (!ok);
 
         switch (type) {

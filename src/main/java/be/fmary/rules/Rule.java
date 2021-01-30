@@ -43,16 +43,16 @@ public class Rule implements Cloneable {
         this.name = name;
     }
 
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name).append(": IF (");
-        StringJoiner sj = new StringJoiner(" AND ");
-        premisses.forEach( fact -> {
-            sj.add(fact.getName());
-        });
-        sb.append(sj).append(") THEN ").append(conclusion);
-        return sb.toString();
-    }
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(name).append(": IF (");
+//        StringJoiner sj = new StringJoiner(" AND ");
+//        premisses.forEach( fact -> {
+//            sj.add(fact.getName());
+//        });
+//        sb.append(sj).append(") THEN ").append(conclusion.getName());
+//        return sb.toString();
+//    }
 
     public Object clone() {
         List<Fact> clonedPremisses = new ArrayList<>();

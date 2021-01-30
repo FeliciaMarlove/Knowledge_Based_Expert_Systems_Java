@@ -18,16 +18,16 @@ public class InferenceEngine {
     private UserConsoleInterface userConsoleInterface;
     private int maxRuleLevel;
 
-    public InferenceEngine(FactsBase factsBase, RulesBase rulesBase, int maxRuleLevel) {
-        this.factsBase = factsBase;
-        this.rulesBase = rulesBase;
-        this.maxRuleLevel = maxRuleLevel;
+    public InferenceEngine() {
+        this.factsBase = new FactsBase();
+        this.rulesBase = new RulesBase();
+        this.userConsoleInterface = new UserConsoleInterface();
+        this.maxRuleLevel = 0;
     }
 
     public void execute() {
         RulesBase base = new RulesBase();
-        base.setRules(rulesBase.getRules());
-        factsBase.clear();
+        base.setRules(rulesBase.cloneRules());
         Rule rule = findFirstApplicableRule(base);
         // while there are applicable rules, apply the rule, add fact in the Facts Base
         // and remove the rule from rules to be tested
@@ -107,7 +107,7 @@ public class InferenceEngine {
      * @return the first applicable rule, or null if no rule in the rules base can apply
      */
     private Rule findFirstApplicableRule(RulesBase rulesBase) {
-        for (Rule rule : rulesBase.getRules()) {
+        for (Rule rule : rulesBase.cloneRules()) {
             int level = isRuleValidated(rule);
             if (level != -1) {
                 maxRuleLevel = level;
@@ -115,5 +115,37 @@ public class InferenceEngine {
             }
         }
         return null;
+    }
+
+    public FactsBase getFactsBase() {
+        return factsBase;
+    }
+
+    public void setFactsBase(FactsBase factsBase) {
+        this.factsBase = factsBase;
+    }
+
+    public RulesBase getRulesBase() {
+        return rulesBase;
+    }
+
+    public void setRulesBase(RulesBase rulesBase) {
+        this.rulesBase = rulesBase;
+    }
+
+    public UserConsoleInterface getUserConsoleInterface() {
+        return userConsoleInterface;
+    }
+
+    public void setUserConsoleInterface(UserConsoleInterface userConsoleInterface) {
+        this.userConsoleInterface = userConsoleInterface;
+    }
+
+    public int getMaxRuleLevel() {
+        return maxRuleLevel;
+    }
+
+    public void setMaxRuleLevel(int maxRuleLevel) {
+        this.maxRuleLevel = maxRuleLevel;
     }
 }

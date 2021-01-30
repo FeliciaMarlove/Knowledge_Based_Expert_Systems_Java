@@ -10,10 +10,14 @@ public class RulesBase {
         rules = new ArrayList<>();
     }
 
-    public List<Rule> getRules() {
+    public List<Rule> cloneRules() {
         List<Rule> clonedList = new ArrayList<>();
         rules.forEach( rule -> clonedList.add((Rule) rule.clone()));
         return clonedList;
+    }
+
+    public List<Rule> getRules() {
+        return rules;
     }
 
     public void setRules(List<Rule> rules) {
