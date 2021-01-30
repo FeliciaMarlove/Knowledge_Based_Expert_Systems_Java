@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
-public class Rule {
+public class Rule implements Cloneable {
     private String name;
     private List<Fact> premisses;
     private Fact conclusion;
@@ -52,5 +52,13 @@ public class Rule {
         });
         sb.append(sj).append(") THEN ").append(conclusion);
         return sb.toString();
+    }
+
+    public Object clone() {
+        List<Fact> clonedPremisses = new ArrayList<>();
+        premisses.forEach( fact -> {
+            clonedPremisses.add((Fact) fact.clone());
+        });
+        return new Rule(name, clonedPremisses, conclusion);
     }
 }
