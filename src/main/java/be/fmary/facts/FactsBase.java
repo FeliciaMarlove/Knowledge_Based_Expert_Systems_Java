@@ -16,7 +16,7 @@ public class FactsBase {
         return clonedList;
     }
 
-    public void clearFactsBase() {
+    public void clear() {
         facts.clear();
     }
 

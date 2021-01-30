@@ -7,6 +7,8 @@ import main.java.be.fmary.facts.FactsBase;
 import main.java.be.fmary.rules.Rule;
 import main.java.be.fmary.rules.RulesBase;
 
+import java.util.List;
+
 public class InferenceEngine {
     private FactsBase factsBase;
     private RulesBase rulesBase;
@@ -17,6 +19,24 @@ public class InferenceEngine {
         this.factsBase = factsBase;
         this.rulesBase = rulesBase;
         this.maxRuleLevel = maxRuleLevel;
+    }
+
+    public void execute() {
+        RulesBase base = new RulesBase();
+        base.setRules(rulesBase.getRules());
+        factsBase.clear();
+        Rule rule = findFirstApplicableRule(base);
+        // while there are applicable rules, apply the rule, add fact in the Facts Base
+        // and remove the rule from rules to be tested
+        while(rule != null) {
+            Fact fact = rule.getConclusion();
+            fact.setLevel(maxRuleLevel + 1);
+            factsBase.addFact(fact);
+            base.deleteRule(rule);
+            rule = findFirstApplicableRule(base);
+        }
+
+        userConsoleInterface.outputFacts(factsBase.getFacts());
     }
 
     public int askIntegerValue(String question) {
@@ -56,7 +76,7 @@ public class InferenceEngine {
      * @param rulesBase
      * @return the first applicable rule, or null if no rule in the rules base can apply
      */
-    public Rule findFirstApplicableRule(RulesBase rulesBase) {
+    private Rule findFirstApplicableRule(RulesBase rulesBase) {
         for(Rule rule: rulesBase.getRules()) {
             int level = isRuleValidated(rule);
             if (level != -1) {
