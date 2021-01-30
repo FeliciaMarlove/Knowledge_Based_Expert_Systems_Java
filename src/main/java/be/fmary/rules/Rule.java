@@ -17,10 +17,14 @@ public class Rule implements Cloneable {
         this.conclusion = conclusion;
     }
 
-    public List<Fact> getPremisses() {
+    public List<Fact> clonePremisses() {
         List<Fact> clonedList = new ArrayList<>();
         premisses.forEach( fact -> clonedList.add((Fact) fact.clone()));
         return clonedList;
+    }
+
+    public List<Fact> getPremisses() {
+        return premisses;
     }
 
     public void setPremisses(List<Fact> premisses) {
@@ -43,16 +47,16 @@ public class Rule implements Cloneable {
         this.name = name;
     }
 
-//    public String toString() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(name).append(": IF (");
-//        StringJoiner sj = new StringJoiner(" AND ");
-//        premisses.forEach( fact -> {
-//            sj.add(fact.getName());
-//        });
-//        sb.append(sj).append(") THEN ").append(conclusion.getName());
-//        return sb.toString();
-//    }
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name).append(": IF (");
+        StringJoiner sj = new StringJoiner(" AND ");
+        premisses.forEach( fact -> {
+            sj.add(fact.getName());
+        });
+        sb.append(sj).append(") THEN ").append(conclusion.getName());
+        return sb.toString();
+    }
 
     public Object clone() {
         List<Fact> clonedPremisses = new ArrayList<>();

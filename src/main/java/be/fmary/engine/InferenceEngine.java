@@ -26,8 +26,10 @@ public class InferenceEngine {
     }
 
     public void execute() {
+        factsBase.clear();
         RulesBase base = new RulesBase();
         base.setRules(rulesBase.cloneRules());
+        List<Rule> checkedRules = new ArrayList<>();
         Rule rule = findFirstApplicableRule(base);
         // while there are applicable rules, apply the rule, add fact in the Facts Base
         // and remove the rule from rules to be tested
@@ -35,10 +37,12 @@ public class InferenceEngine {
             Fact fact = rule.getConclusion();
             fact.setLevel(maxRuleLevel + 1);
             factsBase.addFact(fact);
+            checkedRules.add(rule);
             base.deleteRule(rule);
             rule = findFirstApplicableRule(base);
         }
 
+        userConsoleInterface.outputRules(checkedRules);
         userConsoleInterface.outputFacts(factsBase.getFacts());
     }
 
@@ -93,6 +97,8 @@ public class InferenceEngine {
                 }
             }
             // if value correspond, the level is updated
+            System.out.println(searchedFact);
+            System.out.println(fact);
             if (searchedFact.getValue().equals(fact.getValue())) {
                 maxLevel = Math.max(maxLevel, searchedFact.getLevel());
             }

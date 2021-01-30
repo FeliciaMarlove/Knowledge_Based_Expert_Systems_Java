@@ -43,11 +43,13 @@ public class UserConsoleInterface {
     }
 
     public void outputFacts(List<Fact> facts) {
+        System.out.println("Facts base");
         facts.sort((f1, f2) -> Integer.compare(f2.getLevel(), f1.getLevel()));
         facts.forEach(System.out::println);
     }
 
     public void outputRules(List<Rule> rules) {
+        System.out.println("Checked rules");
         rules.forEach(System.out::println);
     }
 }
