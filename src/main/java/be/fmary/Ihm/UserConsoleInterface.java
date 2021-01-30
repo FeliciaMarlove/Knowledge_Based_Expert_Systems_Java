@@ -43,6 +43,7 @@ public class UserConsoleInterface {
     }
 
     public void outputFacts(List<Fact> facts) {
+        facts.sort((f1, f2) -> Integer.compare(f2.getLevel(), f1.getLevel()));
         facts.forEach(System.out::println);
     }
 
