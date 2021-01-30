@@ -1,13 +1,16 @@
 package main.java.be.fmary.engine;
 
 import main.java.be.fmary.Ihm.UserConsoleInterface;
+import main.java.be.fmary.facts.BooleanFact;
 import main.java.be.fmary.facts.Fact;
 import main.java.be.fmary.facts.FactFactory;
 import main.java.be.fmary.facts.FactsBase;
 import main.java.be.fmary.rules.Rule;
 import main.java.be.fmary.rules.RulesBase;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class InferenceEngine {
     private FactsBase factsBase;
@@ -28,7 +31,7 @@ public class InferenceEngine {
         Rule rule = findFirstApplicableRule(base);
         // while there are applicable rules, apply the rule, add fact in the Facts Base
         // and remove the rule from rules to be tested
-        while(rule != null) {
+        while (rule != null) {
             Fact fact = rule.getConclusion();
             fact.setLevel(maxRuleLevel + 1);
             factsBase.addFact(fact);
@@ -47,14 +50,40 @@ public class InferenceEngine {
         return userConsoleInterface.getBooleanInput(question);
     }
 
+    public void inputRuleAndAddToRuleBase() {
+        Scanner sc = new Scanner(System.in);
+        String name;
+        List<Fact> premisses = new ArrayList<>();
+        String conclusionName;
+        Fact conclusionFact;
+        String type;
+        System.out.println("You will create a new rule in the rules base.\nPlease type a name for the rule:");
+        name = sc.nextLine();
+        System.out.println("Create the premisses of the rule:");
+        boolean premissesDone = false;
+        do {
+            Fact premiss = FactFactory.inputFact();
+            premisses.add(premiss);
+            System.out.println("Enter another premiss? Enter \"yes\" or \"no\"");
+            premissesDone = !sc.nextLine().equalsIgnoreCase("yes");
+        } while (!premissesDone);
+        System.out.println("What is the conclusion name?");
+        conclusionName = sc.nextLine();
+        StringBuilder sb = new StringBuilder();
+        for (Fact f : premisses) {
+            sb.append(f.getName());
+        }
+        conclusionFact = new BooleanFact(conclusionName, true, maxRuleLevel + 1, sb.toString());
+        rulesBase.addRule(new Rule(name, premisses, conclusionFact));
+    }
+
     /**
-     *
      * @param rule The rule to test
      * @return the level or -1 if rule doesn't apply
      */
     private int isRuleValidated(Rule rule) {
         int maxLevel = -1;
-        for(Fact fact: rule.getPremisses()) {
+        for (Fact fact : rule.getPremisses()) {
             Fact searchedFact = factsBase.getFact(fact.getName());
             // if the fact doesn't exist in the Facts Base we create it and add it to the base
             if (searchedFact == null) {
@@ -73,11 +102,12 @@ public class InferenceEngine {
 
     /**
      * Get the first applicable rule from the rules base
+     *
      * @param rulesBase
      * @return the first applicable rule, or null if no rule in the rules base can apply
      */
     private Rule findFirstApplicableRule(RulesBase rulesBase) {
-        for(Rule rule: rulesBase.getRules()) {
+        for (Rule rule : rulesBase.getRules()) {
             int level = isRuleValidated(rule);
             if (level != -1) {
                 maxRuleLevel = level;
