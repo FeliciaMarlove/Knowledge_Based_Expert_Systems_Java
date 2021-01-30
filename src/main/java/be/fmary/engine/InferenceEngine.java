@@ -107,7 +107,7 @@ public class InferenceEngine {
      * @return the first applicable rule, or null if no rule in the rules base can apply
      */
     private Rule findFirstApplicableRule(RulesBase rulesBase) {
-        for (Rule rule : rulesBase.cloneRules()) {
+        for (Rule rule : rulesBase.getRules()) {
             int level = isRuleValidated(rule);
             if (level != -1) {
                 maxRuleLevel = level;
