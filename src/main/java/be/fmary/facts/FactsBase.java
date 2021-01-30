@@ -34,7 +34,7 @@ public class FactsBase {
     }
 
     public Object getFactValue(String factName) {
-        Fact fact = searchFact(factName);
+        Fact fact = getFact(factName);
         return fact == null ? null : fact.getValue();
     }
 }
