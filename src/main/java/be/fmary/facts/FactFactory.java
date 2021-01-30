@@ -3,7 +3,7 @@ package main.java.be.fmary.facts;
 import main.java.be.fmary.engine.InferenceEngine;
 
 public class FactFactory {
-    static Fact Fact(Fact fact, InferenceEngine engine) {
+    public static Fact createFact(Fact fact, InferenceEngine engine) {
         if (fact instanceof IntegerFact) {
             return new IntegerFact(
                     fact.getName(),
